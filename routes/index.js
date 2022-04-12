@@ -17,12 +17,13 @@ router.use(express.static('./'));
 router.post("/match", upload.single("audio_data"), function(req,res){
   const spawn = require("child_process").spawn;
   console.log("recieved post request");
-  const pythonProcess = spawn('python',["application/test_output.py"]);
-  pythonProcess.stdout.on("data", function(data) {
-    console.log(data.toString());
-    res.write(data);
-    res.status(200).send("ok");
-  })
+  res.status(200).send("ok");
+  // const pythonProcess = spawn('python',["application/test_output.py"]);
+  // pythonProcess.stdout.on("data", function(data) {
+  //   console.log(data.toString());
+  //   res.write(data);
+  //   res.status(200).send("ok");
+  // })
 });
 
 /* GET home page. */
