@@ -1,6 +1,22 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #41463D;
+  padding:50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  width: 30%;
+}
+
+@media screen and (max-width: 540px) {
+  img {
+      width: 90%;
+  }
 }
 
 a {
