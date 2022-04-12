@@ -39,7 +39,7 @@ $( document ).ready(function() {
         const formData = new FormData();
         formData.append("audio_data", blob, filename);
         
-        fetch('https://192.168.178.30:8443/notes', {
+        fetch('/match', {
             method: 'POST',
             body: formData
         }).then(async result => { 

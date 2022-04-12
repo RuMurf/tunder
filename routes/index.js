@@ -14,8 +14,9 @@ const storage = multer.diskStorage(
 
 const upload = multer( { storage: storage } );
 router.use(express.static('./'));
-router.post("/notes", upload.single("audio_data"), function(req,res){
+router.post("/match", upload.single("audio_data"), function(req,res){
   const spawn = require("child_process").spawn;
+  console.log("recieved post request");
   const pythonProcess = spawn('python',["application/test_output.py"]);
   pythonProcess.stdout.on("data", function(data) {
     console.log(data.toString());
