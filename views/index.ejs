@@ -1,11 +1,21 @@
-<!DOCTYPE html>
+
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <title>Tunder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/cerulean/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="javascripts/index.js"></script>
+</head>
+<body>
+    <h1 style="text-align: center;">Tunder</h1>
+    <h4 style="text-align: center;">Press the record button bellow to match a song!</h4>
+    <div id="controls">
+    <div style="text-align: center;"><button id="recordButton" class="btn btn-primary btn-lg">Record</button></div>
+    </div>
+    <div id="output" style="text-align: center; color: white;"></div>
+    <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+</body>
 </html>
