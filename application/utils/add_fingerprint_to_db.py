@@ -12,7 +12,9 @@ def generate_fingerprint_add_to_db(file, track_id=None, footprint=FOOTPRINT_SIZE
         print("Error: collection "+collection_name+" already contains track id "+str(track_id))
         return
     fingerprint = generate_fingerprint(file, track_id, footprint, fps, target_start, target_height, target_width, peak_threshold)
-    collection.insert_many(fingerprint)
+    if len(fingerprint) > 1:
+        collection.insert_many(fingerprint)
+    
 
 def generate_multiple_fingerprints_add_to_db(files, track_ids=None, footprints=[FOOTPRINT_SIZE], fpss=[FRAMES_PER_SECOND], target_starts=[TARGET_START], target_heights=[TARGET_HEIGHT], target_widths=[TARGET_WIDTH], peak_thresholds=[PEAK_THRESHOLD]):
     if track_ids is None:
