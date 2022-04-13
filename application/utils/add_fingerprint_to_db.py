@@ -4,7 +4,6 @@ from utils.generate_fingerprint import generate_fingerprint
 from utils.defaults import *
 
 def generate_fingerprint_add_to_db(file, track_id=None, footprint=FOOTPRINT_SIZE, fps=FRAMES_PER_SECOND, target_start=TARGET_START, target_height=TARGET_HEIGHT, target_width=TARGET_WIDTH, peak_threshold=PEAK_THRESHOLD):
-    fingerprint = generate_fingerprint(file, track_id, footprint, fps, target_start, target_height, target_width, peak_threshold)
     collection_name = "db-fp="+str(footprint)+",fps="+str(fps)+",t_start="+str(target_start)+",t_height="+str(target_height)+",t_width="+str(target_width)+",p_th="+str(peak_threshold)
     client = MongoClient("mongodb://localhost:27017")
     db = client["tunder"]
@@ -12,6 +11,7 @@ def generate_fingerprint_add_to_db(file, track_id=None, footprint=FOOTPRINT_SIZE
     if collection.find_one({"track_id": track_id}):
         print("Error: collection "+collection_name+" already contains track id "+str(track_id))
         return
+    fingerprint = generate_fingerprint(file, track_id, footprint, fps, target_start, target_height, target_width, peak_threshold)
     collection.insert_many(fingerprint)
 
 def generate_multiple_fingerprints_add_to_db(files, track_ids=None, footprints=[FOOTPRINT_SIZE], fpss=[FRAMES_PER_SECOND], target_starts=[TARGET_START], target_heights=[TARGET_HEIGHT], target_widths=[TARGET_WIDTH], peak_thresholds=[PEAK_THRESHOLD]):
