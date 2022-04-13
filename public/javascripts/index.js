@@ -1,7 +1,7 @@
 $( document ).ready(function() {
     let rec = null;
     let audioStream = null;
-    let recordTime = 1000*5
+    let recordTime = 1000*30
 
     const recordButton = document.getElementById("recordButton");
 
