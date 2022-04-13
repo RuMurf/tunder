@@ -17,7 +17,4 @@ def generate_starmap(spectrogram, footprint=FOOTPRINT_SIZE, peak_threshold=PEAK_
                 peaks_x.append(i)
                 peaks_y.append(j)
     print("Starmap Generated!")
-    import matplotlib.pyplot as plt
-    plt.scatter(peaks_x, peaks_y)
-    plt.savefig("scatter.png")
     return peaks, peaks_x, peaks_y
