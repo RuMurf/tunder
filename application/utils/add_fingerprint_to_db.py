@@ -30,4 +30,4 @@ def generate_multiple_fingerprints_add_to_db(files, track_ids=None, footprints=[
                             for file, track_id in zip(files, track_ids):
                                 generate_fingerprint_add_to_db(file, track_id, footprint, fps, target_start, target_height, target_width, peak_threshold)
                             print("CREATED "+str(counter)+" DATABASES OUT OF "+str(len(footprints)*len(fpss)*len(target_starts)*len(target_heights)*len(target_widths)*len(peak_thresholds)))
-                            count += 1
+                            counter += 1
