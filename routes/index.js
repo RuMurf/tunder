@@ -31,11 +31,9 @@ router.use(express.static('./'));
 router.post("/match", upload.single("audio_data"), function(req,res){
   const spawn = require("child_process").spawn;
   console.log("recieved post request");
-  //res.status(200).send("ok");
-
-  const pythonProcess = spawn('C:/Users/Ruairi/Projects/tunder/application/venv/Scripts/python.exe', ["application/src/match_program.py", "audio/R2-COTD.wav"]);
+  console.log(req.file.path);
+  const pythonProcess = spawn('C:/Users/Ruairi/Projects/tunder/application/venv/Scripts/python.exe', ["application/src/match_program.py", "sound_files/"+req.file.originalname]);
   pythonProcess.stdout.on("data", function(data) {
-    console.log("datatosend: "+data.toString());
     dataToSend = data.toString().slice(0, -1);
   });
 
@@ -44,7 +42,6 @@ router.post("/match", upload.single("audio_data"), function(req,res){
   });
 
   pythonProcess.on('close', (code) => {
-    console.log('child process close all stdio with code ${code}');
     //send data to browser
     console.log(dataToSend);
     if (dataToSend == 0) {
