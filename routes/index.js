@@ -12,7 +12,7 @@ const songSchema = new mongoose.Schema({
   song_title: String,
   Artist: String,
   Album_id: Number,
-  Album_name: Number
+  Album_name: String
 })
 
 var Song = mongoose.model("songs", songSchema);
@@ -52,7 +52,7 @@ router.post("/match", upload.single("audio_data"), function(req,res){
     }
     else {
       var song = Song.findOne({"song_id": parseInt(dataToSend)}, function(err, song) {
-        res.render('result')
+        res.render('result', {song: song})
       });
     }
   });
