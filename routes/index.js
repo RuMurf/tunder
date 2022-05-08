@@ -52,7 +52,7 @@ router.post("/match", upload.single("audio_data"), function(req,res){
     }
     else {
       var song = Song.findOne({"song_id": parseInt(dataToSend)}, function(err, song) {
-        res.send(song)
+        res.render('result')
       });
     }
   });
