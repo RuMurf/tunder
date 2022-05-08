@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const { ShellString } = require('shelljs');
 
 var app = express();
 
@@ -37,5 +38,10 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+const pypath = path.join(__dirname, 'application')
+const pyenvpath = path.join(__dirname, 'application/venv/Scripts/python.exe')
+const shell = require('shelljs');
+
 
 module.exports = app;
