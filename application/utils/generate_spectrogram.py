@@ -5,7 +5,7 @@ from sys import argv
 from utils.defaults import *
 
 def generate_spectrogram(filepath, fps=FRAMES_PER_SECOND):
-    print("Generating spectrogram... [fps="+str(fps)+"]")
+    #print("Generating spectrogram... [fps="+str(fps)+"]")
     signal = Signal(filepath, sample_rate=44100, num_channels=1)
     framed_signal = FramedSignal(signal, fps=fps)
     spectrogram = Spectrogram(framed_signal)
