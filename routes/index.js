@@ -47,9 +47,14 @@ router.post("/match", upload.single("audio_data"), function(req,res){
     console.log('child process close all stdio with code ${code}');
     //send data to browser
     console.log(dataToSend);
-    var song = Song.findOne({"song_id": parseInt(dataToSend)}, function(err, song) {
-      res.send(song)
-    });
+    if (dataToSend == 0) {
+      res.send(0);
+    }
+    else {
+      var song = Song.findOne({"song_id": parseInt(dataToSend)}, function(err, song) {
+        res.send(song)
+      });
+    }
   });
 });
 
