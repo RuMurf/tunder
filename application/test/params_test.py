@@ -1,7 +1,7 @@
 from src.utils import *
 
 
-DB_NAME = "paramater_tuning"
+DB_NAME = "parameter_tuning"
 COLLECTION_NAME = "test 1"
 
 def add_to_db(db_name, collection_name, peak_factor=PEAK_FACTOR, sample_rate= SAMPLE_RATE, footprint=FOOTPRINT_SIZE, fps=FRAMES_PER_SECOND, t_start=TARGET_START, t_height=TARGET_HEIGHT, t_width=TARGET_WIDTH, peak_threshold=PEAK_THRESHOLD):
@@ -29,5 +29,5 @@ def match():
     print(match_from_file("sound_files/sound-file-1652123624894.wav", "tunder", "fingerprints"))
 
 
-add_to_db(DB_NAME, "test 2", footprint=20)
-add_to_db(DB_NAME, "test 3", footprint=50)
+add_to_db(DB_NAME, "test 4", footprint=20, fps=0.1)
+add_to_db(DB_NAME, "test 5", footprint=20, fps=0.5)

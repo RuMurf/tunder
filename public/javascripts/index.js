@@ -29,6 +29,7 @@ $( document ).ready(function() {
 
     function stopRecording() {
         recordButton.disabled = false;
+        document.getElementById("output").innerHTML = "Matching..."
         rec.stop();
         audioStream.getAudioTracks()[0].stop();
         rec.exportWAV(uploadSoundData);
@@ -38,7 +39,7 @@ $( document ).ready(function() {
         const filename = "sound-file-" + new Date().getTime() + ".wav";
         const formData = new FormData();
         formData.append("audio_data", blob, filename);
-        
+
         fetch('/match', {
             method: 'POST',
             body: formData
