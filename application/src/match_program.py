@@ -18,28 +18,34 @@ db = client["tunder"]
 collection = db[collection_name]
 
 matching_hashes = []
-time_ds = {1: [], 2: [], 3: [], 4: []}
+time_ds = {}
 for f_hash in fingerprint:
     for db_hash in collection.find({"hash": f_hash["hash"]}):
         if db_hash["time_d"] - f_hash["time_d"] > 0 and db_hash["time_d"] - f_hash["time_d"] < TARGET_WIDTH*FRAMES_PER_SECOND:
+            if db_hash["track_id"] not in time_ds:
+                time_ds[db_hash["track_id"]] = []
             time_ds[db_hash["track_id"]].append(db_hash["time_d"] - f_hash["time_d"])
-#print(time_ds)
-match_results = [0, 0, 0, 0]
-fig, figs = plt.subplots(1, len(time_ds), sharex=True, sharey=True)
-for i in range(len(figs)):
-    figs[i].set_title("Track "+str(i+1))
-    n, bins, patches = figs[i].hist(time_ds[i+1])
-    if not math.isnan(max(n)):
-        match_results[i] = max(n)
-best_match = 0
-result = 0
-for i in range(len(match_results)):
-    if match_results[i] > best_match:
-        best_match = match_results[i]
-        result = i+1
+
+match_results = {}
+for key in time_ds:
+    match_results[key] = 0
+
+
+if len(match_results) > 1:
+    fig, figs = plt.subplots(1, len(time_ds), sharex=True, sharey=True)
+    for i in range(len(figs)):
+        figs[i].set_title("Track "+str(i+1))
+        n, bins, patches = figs[i].hist(time_ds[i+1])
+        if not math.isnan(max(n)):
+            match_results[i] = max(n)
+    best_match = 0
+    result = 0
+    for i in range(len(match_results)):
+        if match_results[i] > best_match:
+            best_match = match_results[i]
+            result = i+1
+else:
+    result = match_results.popitem()[0]
+
 print(result)
 sys.stdout.flush()
-    #return result
-
-# if __name__ == "__main__":
-#     match_song(sys.argv[1])
