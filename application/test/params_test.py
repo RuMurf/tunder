@@ -29,5 +29,6 @@ def match():
     print(match_from_file("sound_files/sound-file-1652123624894.wav", "tunder", "fingerprints"))
 
 
-add_to_db(DB_NAME, "test 4", footprint=20, fps=0.1)
-add_to_db(DB_NAME, "test 5", footprint=20, fps=0.5)
+add_to_db(DB_NAME, "test 4", footprint=20, fps=1)
+add_to_db(DB_NAME, "test 5", footprint=20, fps=10)
+add_to_db(DB_NAME, "test 5", footprint=20, peak_threshold=20)
