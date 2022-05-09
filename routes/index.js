@@ -5,7 +5,7 @@ var router = express.Router();
 const shell = require('shelljs');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://127.0.0.1:27017/tunder-songs');
+mongoose.connect('mongodb://127.0.0.1:27017/tunder');
 
 const songSchema = new mongoose.Schema({
   song_id: Number,

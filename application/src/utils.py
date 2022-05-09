@@ -1,3 +1,4 @@
+from sys import stderr
 from madmom.audio.signal import Signal, FramedSignal
 from madmom.audio.spectrogram import Spectrogram
 from pyparsing import col
@@ -139,9 +140,11 @@ def match_fingerprint(fingerprint, collection):
             if match_results[key] > best_match:
                 best_match = match_results[key]
                 result = key
-    else:  # only one track with matching hash(es)
+    elif len(match_results) == 1:  # only one track with matching hash(es)
         result = match_results.popitem()[0]
-
+    else:
+        result = 0
+    
     return result
 
 def match_from_file(file, db_name=DB, collection_name=COLLECTION, sample_rate=SAMPLE_RATE, footprint=FOOTPRINT_SIZE, fps=FRAMES_PER_SECOND, t_start=TARGET_START, t_height=TARGET_HEIGHT, t_width=TARGET_WIDTH):
