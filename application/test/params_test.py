@@ -1,4 +1,4 @@
-from utils import *
+from src.utils import *
 
 def add_db():
     add_fingerprint_to_db("audio/db/01 Highway To Hell.wav", 60*3+28, db_name="test", collection_name="test", track_id=1)
