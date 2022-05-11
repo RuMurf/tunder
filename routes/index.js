@@ -34,7 +34,8 @@ router.post("/match", upload.single("audio_data"), function(req,res){
   console.log(req.file.path);
   const pythonProcess = spawn('C:/Users/Ruairi/Projects/tunder/application/venv/Scripts/python.exe', ["application/src/match_program.py", "sound_files/"+req.file.originalname]);
   pythonProcess.stdout.on("data", function(data) {
-    dataToSend = data.toString().slice(0, -1);
+    dataToSend = data.toString();
+    console.log("data: "+dataToSend)
   });
 
   pythonProcess.stderr.on('data', err => {
@@ -48,7 +49,11 @@ router.post("/match", upload.single("audio_data"), function(req,res){
       res.render('result', {song: {song_title: "Inconclusive", Artist: "Sorry, we couldn't find a match.", Album_name: "", Album_id: 0}})
     }
     else {
-      var song = Song.findOne({"song_id": parseInt(dataToSend)}, function(err, song) {
+      Song.findOne({"song_id": parseInt(dataToSend)}, function(err, song) {
+        if(err){
+          console.log(String(err))
+        }
+        console.log(song)
         res.render('result', {song: song})
       });
     }
