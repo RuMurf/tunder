@@ -15,7 +15,7 @@ TARGET_HEIGHT = 4000
 TARGET_WIDTH = 2
 FRAMES_PER_SECOND = 5
 PEAK_THRESHOLD = 0
-PEAK_FACTOR = 100
+PEAK_FACTOR = 100000
 CONNECTION_STRING = "mongodb://localhost:27017"
 DB = "tunder"
 COLLECTION = "fingerprints"
@@ -114,7 +114,7 @@ def match_fingerprint(fingerprint, collection):
     # calculate time_d of each db hash that matches a sample hash
     for f_hash in fingerprint:
         for db_hash in collection.find({"hash": f_hash["hash"]}):
-            if db_hash["time_d"] - f_hash["time_d"] > 0 and db_hash["time_d"] - f_hash["time_d"] < TARGET_WIDTH * FRAMES_PER_SECOND: ##SORT THIS OUT
+            if db_hash["time_d"] - f_hash["time_d"] > 0: #and db_hash["time_d"] - f_hash["time_d"] < TARGET_WIDTH * FRAMES_PER_SECOND: ##SORT THIS OUT
                 if db_hash["track_id"] not in time_ds:
                     time_ds[db_hash["track_id"]] = []
                 time_ds[db_hash["track_id"]].append(db_hash["time_d"] - f_hash["time_d"])
@@ -127,10 +127,12 @@ def match_fingerprint(fingerprint, collection):
     # generate histogram of time_ds for each db track and calculate majority bin (as percentage)
     if len(match_results) > 1:
         # generate histograms
-        fig, figs = plt.subplots(1, len(time_ds), sharex=True, sharey=True)
+        fig, figs = plt.subplots(1, len(time_ds), sharex=False, sharey=True)
         for i, key in zip(range(len(figs)), time_ds.keys()):
             figs[i].set_title("Track "+str(key))
-            n, bins, patches = figs[i].hist(time_ds[key])
+            n, bins, patches = figs[i].hist(time_ds[key], bins=10)
+            #print(time_ds)
+            #print(n)
             if not math.isnan(max(n)):
                 match_results[key] = max(n)
 
@@ -144,7 +146,7 @@ def match_fingerprint(fingerprint, collection):
         result = match_results.popitem()[0]
     else:
         result = 0
-    
+    plt.show()
     return result
 
 def match_from_file(file, db_name=DB, collection_name=COLLECTION, sample_rate=SAMPLE_RATE, footprint=FOOTPRINT_SIZE, fps=FRAMES_PER_SECOND, t_start=TARGET_START, t_height=TARGET_HEIGHT, t_width=TARGET_WIDTH):
