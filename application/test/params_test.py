@@ -1,6 +1,6 @@
 from src.utils import *
 
-
+# Test script used to generate databases and match songs using different parameters
 DB_NAME = "parameter_tuning"
 COLLECTION_NAME = "test 1"
 
