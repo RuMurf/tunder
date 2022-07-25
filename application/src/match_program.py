@@ -2,6 +2,7 @@ from utils import *
 import sys
 sys.path.append('C:\\Users\\Ruairi\\Projects\\tunder\\application')
 
+#  Main application to be called by the web server when a song match request is made
 
 file = sys.argv[1]
 
