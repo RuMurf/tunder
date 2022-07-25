@@ -7,6 +7,8 @@ from pymongo import MongoClient
 import math
 from matplotlib import pyplot as plt
 
+#  Utility functions used during the song matching and database generation processes
+
 # Defaults
 SAMPLE_RATE = 44100
 FOOTPRINT_SIZE = 30
@@ -20,18 +22,21 @@ CONNECTION_STRING = "mongodb://localhost:27017"
 DB = "tunder"
 COLLECTION = "fingerprints"
 
+# Get a collection from the database
 def get_collection(db_name=DB, collection_name=COLLECTION, connection_string=CONNECTION_STRING):
     client = MongoClient(connection_string)
     db = client[db_name]
     collection = db[collection_name]
     return collection
 
+# Generate a spectrogram from an audio file
 def generate_spectrogram(filepath, sample_rate=SAMPLE_RATE, fps=FRAMES_PER_SECOND):
     signal = Signal(filepath, sample_rate=SAMPLE_RATE, num_channels=1)
     framed_signal = FramedSignal(signal, fps=fps)
     spectrogram = Spectrogram(framed_signal)
     return spectrogram
 
+# Generate a starmap from a spectrogram
 def generate_starmap(spectrogram, footprint=FOOTPRINT_SIZE, peak_threshold=PEAK_THRESHOLD):
     filtered_spectrogram = maximum_filter(spectrogram, footprint)
     peaks = []
@@ -45,6 +50,7 @@ def generate_starmap(spectrogram, footprint=FOOTPRINT_SIZE, peak_threshold=PEAK_
                 peaks_y.append(j)
     return peaks, peaks_x, peaks_y
 
+# Generate a starmap from a spectrogramn and return peaks in order of significance based on PEAK_FACTOR
 def generate_ordered_starmap(spectrogram, track_length, footprint=FOOTPRINT_SIZE, peak_threshold=PEAK_THRESHOLD, peak_factor=PEAK_FACTOR):
     filtered_spectrogram = maximum_filter(spectrogram, footprint)
     peaks = {}
@@ -68,6 +74,9 @@ def generate_ordered_starmap(spectrogram, track_length, footprint=FOOTPRINT_SIZE
     print(max_peaks)
     return max_peaks, peaks_x, peaks_y
 
+# Loop through points in the target zone of each peak (calculated using TARGET_START, TARGET_HEIGHT & TARGET_WIDTH)
+# and generate a hash based on each pair of peaks (current peak and peak in current peaks target zone)
+# list of hashes are returned as audio fingerprint
 def get_hashes(spectrogram, peaks, track_id=None, t_start=TARGET_START, t_height=TARGET_HEIGHT, t_width=TARGET_WIDTH, fps=FRAMES_PER_SECOND):
     frequency_bin_size = spectrogram.bin_frequencies[1]
 
@@ -86,6 +95,7 @@ def get_hashes(spectrogram, peaks, track_id=None, t_start=TARGET_START, t_height
             continue
     return fingerprint
 
+# Genetate a fingerprint of an audio track using above utility finctions
 def generate_fingerprint(file, track_id=None, sample_rate= SAMPLE_RATE, footprint=FOOTPRINT_SIZE, fps=FRAMES_PER_SECOND, t_start=TARGET_START, t_height=TARGET_HEIGHT, t_width=TARGET_WIDTH, peak_threshold=PEAK_THRESHOLD):
     spectrogram = generate_spectrogram(file, sample_rate=sample_rate, fps=fps)
     peaks, peaks_x, peaks_y = generate_starmap(spectrogram, footprint=footprint, peak_threshold=peak_threshold)
@@ -98,6 +108,7 @@ def generate_ordered_fingerprint(file, track_length, peak_factor=PEAK_FACTOR, tr
     fingerprint = get_hashes(spectrogram, peaks, track_id, t_start=t_start, t_height=t_height, t_width=t_width, fps=fps)
     return fingerprint
 
+# Fingerprint an original track and add it to the database
 def add_fingerprint_to_db(file, track_length, peak_factor=PEAK_FACTOR, db_name=DB, collection_name=COLLECTION, track_id=None, sample_rate= SAMPLE_RATE, footprint=FOOTPRINT_SIZE, fps=FRAMES_PER_SECOND, t_start=TARGET_START, t_height=TARGET_HEIGHT, t_width=TARGET_WIDTH, peak_threshold=PEAK_THRESHOLD):
     collection = get_collection(db_name=db_name, collection_name=collection_name)
     if collection.find_one({"track_id": track_id}):
@@ -108,6 +119,7 @@ def add_fingerprint_to_db(file, track_length, peak_factor=PEAK_FACTOR, db_name=D
     if len(fingerprint) > 1:
         collection.insert_many(fingerprint)
 
+# Match a sample clip's fingerprint to one in the database
 def match_fingerprint(fingerprint, collection):
     time_ds = {}  # times from start of tracks to start of sample clip
 
@@ -149,6 +161,7 @@ def match_fingerprint(fingerprint, collection):
     plt.show()
     return result
 
+# Generate fingerprint from audio clip and match to song in database
 def match_from_file(file, db_name=DB, collection_name=COLLECTION, sample_rate=SAMPLE_RATE, footprint=FOOTPRINT_SIZE, fps=FRAMES_PER_SECOND, t_start=TARGET_START, t_height=TARGET_HEIGHT, t_width=TARGET_WIDTH):
     fingerprint = generate_fingerprint(file, sample_rate=sample_rate, footprint=footprint, fps=fps, t_start=t_start, t_height=t_height, t_width=t_width)
     collection = get_collection(db_name=db_name, collection_name=collection_name)
