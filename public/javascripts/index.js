@@ -7,6 +7,7 @@ $( document ).ready(function() {
 
     recordButton.addEventListener("click", startRecording);
 
+    //When Record button is clicked start recording audio from device microphone for recordTime miliseconds
     function startRecording() {
 
         let constraints = { audio: true, video:false }
@@ -27,6 +28,8 @@ $( document ).ready(function() {
         setTimeout(stopRecording, recordTime);
     }
 
+    //Called by startRecording when timeout is reached
+    //Export recorded audio as WAV file
     function stopRecording() {
         recordButton.disabled = false;
         document.getElementById("output").innerHTML = "Matching..."
@@ -35,6 +38,7 @@ $( document ).ready(function() {
         rec.exportWAV(uploadSoundData);
     }
 
+    //Upload audio to server via API
     function uploadSoundData(blob) {
         const filename = "sound-file-" + new Date().getTime() + ".wav";
         const formData = new FormData();
