@@ -54,7 +54,13 @@
 
 For my undergraduate final year project I was tasked with researching and developing a music recognition application (similar existing applications such as Shazam and Musicxmatch). This is the resulting application.
 
-After experimenting with different Machine Learning and Information Retrieval methods I decided to follow a very similar aproach to the original Shazam algorithm.
+After experimenting with different Machine Learning and Information Retrieval methods I decided to follow a similar aproach to the original [Shazam algorithm][Shazam-paper].
+
+### The algorithm
+
+The algorithm uses audio "fingerprints" to identify clips of music in the presence of noise (as there would be in a sample recorded through an end user device's microphone). Each track in the database is run through this fingerprinting process and the fingerprint is what is saved to the database. These fingerprints contain the most important identifying information of a track in a very compact form, allowing for smaller databases and faster matching.
+
+The matching process is very similar to that of human fingerprint matching. The sample clip is run through the same fingerprinting process and the resuting fingerprint is matched againts all the fingerprints in the database. There will be some false matches and not all points on the sample fingerprint will match the correct track. However, this process works on the basis that a vast majority of points will match, at a given time position, on the original track over other tracks in the database.
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -132,7 +138,8 @@ The following instructions are based on the presumtion that you are on Windows a
 
 - [ ] Support for HTTPS
     - Due to chrome's security features, audio can only be recorded by the browser over a secured HTTPS connection. As a result, this application currently only functions when run on the same machine as the server.
-- [ ] Native Android and IOS Client applications
+- [ ] Native Android and IOS client applications
+- [ ] Investigate machine learning aproaches such as deep neural networks
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -140,19 +147,10 @@ The following instructions are based on the presumtion that you are on Windows a
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo_name/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo_name/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo_name/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
-[license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: homepage.png
+[Shazam-paper]: https://www.ee.columbia.edu/~dpwe/papers/Wang03-shazam.pdf
 
 [Python.org]: https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54
 [Python-url]: https://python.org
