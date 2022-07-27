@@ -28,6 +28,7 @@
       <a href="#about-the-project">About The Project</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
+        <li><a href='#the-algorithm'>The Algorithm</a></li>
       </ul>
     </li>
     <li>
@@ -50,13 +51,13 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]](https://github.com/RuMurf/tunder)
 
 For my undergraduate final year project I was tasked with researching and developing a music recognition application (similar existing applications such as Shazam and Musicxmatch). This is the resulting application.
 
 After experimenting with different Machine Learning and Information Retrieval methods I decided to follow a similar aproach to the original [Shazam algorithm][Shazam-paper].
 
-### The algorithm
+### The Algorithm
 
 The algorithm uses audio "fingerprints" to identify clips of music in the presence of noise (as there would be in a sample recorded through an end user device's microphone). Each track in the database is run through this fingerprinting process and the fingerprint is what is saved to the database. These fingerprints contain the most important identifying information of a track in a very compact form, allowing for smaller databases and faster matching.
 
@@ -136,6 +137,7 @@ The following instructions are based on the presumtion that you are on Windows a
 <!-- ROADMAP -->
 ## Roadmap
 
+- [ ] Configuration variables for database connection strings, etc.
 - [ ] Support for HTTPS
     - Due to chrome's security features, audio can only be recorded by the browser over a secured HTTPS connection. As a result, this application currently only functions when run on the same machine as the server.
 - [ ] Native Android and IOS client applications
@@ -144,6 +146,14 @@ The following instructions are based on the presumtion that you are on Windows a
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+
+<!-- ACKNOWLEDGMENTS -->
+## Acknowledgments
+
+
+* Thanks to [Othneil Drew](https://github.com/othneildrew) for the [README template](https://github.com/othneildrew/Best-README-Template)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
