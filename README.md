@@ -53,7 +53,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://github.com/RuMurf/tunder)
 
-For my undergraduate final year project I was tasked with researching and developing a music recognition application (similar existing applications such as Shazam and Musicxmatch). This is the resulting application.
+For my undergraduate final year project I was tasked with researching and developing a music recognition application (similar to existing applications such as Shazam and Musicxmatch). This is the resulting application.
 
 After experimenting with different Machine Learning and Information Retrieval methods I decided to follow a similar approach to the original [Shazam algorithm][Shazam-paper].
 
@@ -135,7 +135,7 @@ The following instructions are based on the presumption that you are on Windows 
 
 
 <!-- ROADMAP -->
-## Roadmap
+## To Do
 
 - [ ] Configuration variables for database connection strings, etc.
 - [ ] Support for HTTPS
@@ -158,7 +158,7 @@ The following instructions are based on the presumption that you are on Windows 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
+[linkedin-url]: https://www.linkedin.com/in/ruair%C3%AD-murphy-62276817a/
 [product-screenshot]: homepage.png
 [Shazam-paper]: https://www.ee.columbia.edu/~dpwe/papers/Wang03-shazam.pdf
 
