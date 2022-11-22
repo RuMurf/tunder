@@ -1,0 +1,5 @@
+- Add base Flask application
+- Add library files (or install node modules)
+- Add gitignore
+- Add base API functions
+- Add basic UI for API testing
