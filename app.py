@@ -13,7 +13,7 @@ def index():
 def upload_file():
     session['audio'] = 'an audio sample'
     return {
-        "status" : "Generating Fingerprint"
+        "status" : "Generating fingerprint"
     }
 
 # generate fingerprint for uploaded audio sample
