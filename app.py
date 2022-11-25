@@ -1,14 +1,17 @@
 from flask import Flask, render_template, request, session
 from time import sleep
+from parameters import *
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
+# View Routers
 @app.route('/')
 def index():
     return render_template('index.html')
 
-# upload audio sample
+# API Routers
+## upload audio sample
 @app.route('/uploadFile')
 def upload_file():
     session['audio'] = 'an audio sample'
@@ -16,7 +19,7 @@ def upload_file():
         "status" : "Generating fingerprint"
     }
 
-# generate fingerprint for uploaded audio sample
+## generate fingerprint for uploaded audio sample
 @app.route('/generateFingerprint')
 def generate_fingerprint():
     sleep(5)
@@ -24,6 +27,7 @@ def generate_fingerprint():
         "status" : "Searching for matches"
     }
 
+## search databasee for matches
 @app.route('/searchDatabase')
 def search_database():
     sleep(5)
