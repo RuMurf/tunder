@@ -10,5 +10,9 @@
         <h1>Howya Now</h1>
         <button onclick="uploadFile()">Hello</button>
         <p id="status"></p>
+        <form action="/uploadFile" method="POST" enctype = "multipart/form-data">
+            <input type="file" id="myFile" name="sample">
+            <input type="submit">
+        </form>
     </body>
 </html>
