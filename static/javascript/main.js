@@ -5,9 +5,18 @@ function hello() {
 }
 
 function uploadFile() {
+    $("#status").html("Uploading file...");
+    const file = $("#file")[0].files[0];
+    data = new FormData();
+    data.append("sample", file);
+    
+
     $.ajax({
         url: "/uploadFile",
-        type: "GET",
+        type: "POST",
+        data: data,
+        contentType: false,
+        processData: false,
         success: function (response) {
             $("#status").html(response.status);
             generateFingerprint();

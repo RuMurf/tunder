@@ -11,14 +11,13 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 def index():
     return render_template('index.html')
 
+
 # API Routers
 ## upload audio sample
 @app.route('/uploadFile', methods=["POST"])
 def upload_file():
-    file = request.files
-    print(request.files["sample"])
-    request.files["sample"].save(request.files["sample"].filename)
-    session['audio'] = 'an audio sample'
+    file = request.files["sample"]
+    
     return {
         "status" : "Generating fingerprint"
     }
