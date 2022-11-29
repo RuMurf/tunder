@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, make_response, request, session
 from time import sleep
 from parameters import *
 
@@ -13,29 +13,24 @@ def index():
 
 
 # API Routers
-## upload audio sample
-@app.route('/uploadFile', methods=["POST"])
-def upload_file():
-    file = request.files["sample"]
-    
-    return {
-        "status" : "Generating fingerprint"
-    }
-
+#################################################
 ## generate fingerprint for uploaded audio sample
-@app.route('/generateFingerprint')
+@app.route('/generateFingerprint', methods=["POST"])
 def generate_fingerprint():
+    file = request.files["sample"]
     sleep(5)
-    return {
-        "status" : "Searching for matches"
-    }
+    fingerprint = ["hash1", "hash2", "hash3"]
+    session["fingerprint"] = fingerprint
+    return make_response({
+        "success": True
+    })
 
 ## search databasee for matches
 @app.route('/searchDatabase')
 def search_database():
     sleep(5)
     return {
-        "status" : "Found a match for: "+session['audio']
+        "result" : session["fingerprint"]
     }
 
 if __name__ == "__main__":

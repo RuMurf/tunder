@@ -5,34 +5,20 @@ function hello() {
 }
 
 function uploadFile() {
-    $("#status").html("Uploading file...");
+    $("#status").html("Generating Fingerprint...");
     const file = $("#file")[0].files[0];
     data = new FormData();
     data.append("sample", file);
     
 
     $.ajax({
-        url: "/uploadFile",
+        url: "/generateFingerprint",
         type: "POST",
         data: data,
         contentType: false,
         processData: false,
-        success: function (response) {
-            $("#status").html(response.status);
-            generateFingerprint();
-        },
-        error: function (error) {
-            window.alert(`Error ${error}`);
-        }
-    });
-}
-
-function generateFingerprint() {
-    $.ajax({
-        url: "/generateFingerprint",
-        type: "GET",
-        success: function (response) {
-            $("#status").html(response.status);
+        success: function () {
+            $("#status").html("");
             searchDatabase();
         },
         error: function (error) {
@@ -42,11 +28,12 @@ function generateFingerprint() {
 }
 
 function searchDatabase() {
+    $("#status").html("Searching for matches...");
     $.ajax({
         url: "/searchDatabase",
         type: "GET",
         success: function (response) {
-            $("#status").html(response.status);
+            $("#status").html(response.result);
         },
         error: function (error) {
             window.alert(`Error ${error}`);
