@@ -1,6 +1,9 @@
 from flask import Flask, render_template, make_response, request, session
 from time import sleep
 from parameters import *
+import ffmpeg
+from pydub import AudioSegment
+from scipy.io.wavfile import read
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -18,7 +21,12 @@ def index():
 @app.route('/generateFingerprint', methods=["POST"])
 def generate_fingerprint():
     file = request.files["sample"]
-    sleep(5)
+
+    AudioSegment.from_file(file).set_frame_rate(44100).export("test6.wav", format="wav")
+    file = read("test6.wav")
+    print(file[0])
+    
+
     fingerprint = ["hash1", "hash2", "hash3"]
     session["fingerprint"] = fingerprint
     return make_response({
