@@ -1,2 +1,2 @@
 # Requirements
-sox https://sourceforge.net/projects/sox/
+ffmpeg https://ffmpeg.org/download.html
