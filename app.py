@@ -21,9 +21,14 @@ def index():
 @app.route('/generateFingerprint', methods=["POST"])
 def generate_fingerprint():
     file = request.files["sample"]
-
-    AudioSegment.from_file(file).set_frame_rate(44100).export("test6.wav", format="wav")
-    file = read("test6.wav")
+    audio_segment = AudioSegment.from_file(file)
+    if audio_segment.frame_rate is not 44100:
+        sample = read(audio_segment.set_frame_rate(44100).export(format="wav"))
+    else:
+        sample = read(audio_segment.export(format="wav"))
+    print(sample[0])
+    #AudioSegment.from_file(file).set_frame_rate(44100).export("test6.wav", format="wav")
+    #file = read("test6.wav")
     print(file[0])
     
 
