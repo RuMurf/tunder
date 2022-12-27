@@ -50,3 +50,4 @@ yarn-error.log*
 
 # Project Specific Files
 *.wav
+*.mp3
